@@ -1,0 +1,16 @@
+{% set basepkgs = salt['grains.filter_by']({
+    'FreeBSD': {
+      'required_pkgs': [ 'rsync', 'curl', 'dmidecode', 'sudo', 'openldap-client', 'pam_mkhomedir', 'ca_root_nss', 'py27-pip', 'ack', 'tmux' ],
+    },
+    'RedHat': {
+      'required_pkgs': [ 'openssh-server', 'curl', 'dmidecode', 'sudo', 'epel-release', 'ntp', 'python-pip' ],
+    },
+    'Debian': {
+      'required_pkgs': [ 'curl', 'rsync', 'dmidecode', 'sudo', 'ntp', 'ldap-utils', 'libpam-mkhomedir', 'openssh-server', 'python-pip' ],
+    },
+    'Arch': {
+      'required_pkgs': [ 'curl', 'rsync', 'dmidecode', 'sudo', 'ntp', 'libldap', 'openssh', 'python2-pip', 'pam' ],
+    }
+}, merge=salt['pillar.get']('basepkgs:lookup'))
+%}
+        
