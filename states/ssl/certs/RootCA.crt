@@ -1,0 +1,2 @@
+# This should be the public certificate for your internal
+#  Top CA. The Top CA only signs sub-CA certificates (like ExampleCorpServerCA)

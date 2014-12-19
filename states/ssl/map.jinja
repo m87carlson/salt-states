@@ -1,0 +1,30 @@
+{% set ssl = salt['grains.filter_by']({
+    'Arch': {
+      'cabundle_path': '/etc/ssl/cert.pem',
+      'ca_cert_dir': '/usr/local/share/ca-certificates/ExampleCorp',
+      'update_ca_certificates': '/usr/sbin/update-ca-certificates',
+    },
+    'Debian': {
+      'cabundle_path': '/usr/lib/ssl/cert.pem',
+      'ca_cert_dir': '/usr/share/ca-certificates/ExampleCorp',
+      'update_ca_certificates': '/usr/sbin/update-ca-certificates',
+    },
+    'Ubuntu': {
+      'cabundle_path': '/usr/lib/ssl/cert.pem',
+      'ca_cert_dir': '/usr/share/ca-certificates/ExampleCorp',
+      'update_ca_certificates': '/usr/sbin/update-ca-certificates --fresh',
+    },
+    'FreeBSD': {
+      'cabundle_path': '/etc/ssl/certs.d/cert.pem',
+      'ca_cert_dir': '/etc/ssl/certs.d',
+      'update_ca_certificates': 'cat /etc/ssl/certs.d/* > /usr/local/share/certs/ca-root-nss.crt',
+      'path': { 'wildcard_example.com': {'key': '/etc/ssl/wildcard_example.com/wildcard.example.com.key', 
+					  'cert': '/etc/ssl/wildcard_example.com/wildcard.example.com.key'}
+      },
+    },
+    'Windows': {
+       'path': { 'wildcard_example_com': {'key': 'C:/ssl/wildcard_example.com/wildcard.example.com.key', 
+					   'cert': 'C:/ssl/wildcard_example.com/wildcard.example.com.pem'}
+      },
+    },
+}, merge=salt['pillar.get']('ssl:lookup')) %}

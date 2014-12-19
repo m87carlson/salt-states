@@ -1,0 +1,2 @@
+#this should be the public certificate of your internal
+# CA that signs server certificates
